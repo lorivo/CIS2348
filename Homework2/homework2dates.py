@@ -17,6 +17,7 @@ today_month = today.month
 # part b which just requires reading given file
 filedates = open('inputDates.txt')
 date_filecontents = filedates.read()
+filedates.close()
 
 givenstring = input()
 
