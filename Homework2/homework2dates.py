@@ -14,6 +14,10 @@ today_year = today.year
 today_month = today.month
 # int value for today's month
 
+# part b which just requires reading given file
+filedates = open('inputDates.txt')
+date_filecontents = filedates.read()
+
 givenstring = input()
 
 while givenstring != '-1':
