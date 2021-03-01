@@ -21,7 +21,7 @@ date_filecontents = filedates.readlines()
 filedates.close()
 
 # part c, creating new file to write into
-f = open('parsedDates.txt','w')
+f = open('parsedDates.txt', 'w')
 
 for n in date_filecontents:
     # n is each part of the list
