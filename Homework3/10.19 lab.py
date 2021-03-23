@@ -1,8 +1,8 @@
 # Lori Vo 1852113
 
 class ItemToPurchase:
-    def __init__(self, givname='none', price=0, quantity=0, description="none"):
-        self.item_name = givname
+    def __init__(self, given_name='none', price=0, quantity=0, description="none"):
+        self.item_name = given_name
         self.item_price = price
         self.item_quantity = quantity
         self.item_description = description
@@ -88,7 +88,6 @@ def print_menu(cart):
     user_option = ''
 
     while user_option != 'q':
-        item_purchase = ItemToPurchase
         print('MENU')
         print('a - Add item to cart')
         print('r - Remove item from cart')
@@ -99,7 +98,8 @@ def print_menu(cart):
         print()
         print('Choose an option:')
         user_option = input()
-        while user_option != 'a' and user_option != 'r' and user_option != 'c' and user_option != 'i' and user_option != 'o' and user_option != 'q':
+        while user_option != 'a' and user_option != 'r' and user_option != 'c' and user_option != 'i'\
+                and user_option != 'o' and user_option != 'q':
             print('Choose an option:')
             user_option = input()
         if user_option == 'a':
@@ -154,6 +154,6 @@ if __name__ == "__main__":
     print()
     print("Customer name:", name)
     print("Today's date:", date)
-    ncart = ShoppingCart(name, date)
+    new_cart = ShoppingCart(name, date)
     print()
-    print_menu(ncart)
+    print_menu(new_cart)

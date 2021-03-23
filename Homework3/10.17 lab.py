@@ -8,7 +8,7 @@ class ItemToPurchase:
 
     def print_item_cost(self):
         print('{} {} @ ${} = ${}'.format(self.item_name, self.item_quantity, self.item_price,
-                                        (self.item_quantity*self.item_price)))
+                                         self.item_quantity*self.item_price))
 
 
 if __name__ == '__main__':
