@@ -23,7 +23,8 @@ try:
         line = line.strip()
         temp = line.split(',')
 #        print(temp)
-        data_dictionary[temp[0]].append(temp[1:])
+        string1 = temp[1]
+        data_dictionary[temp[0]].append(string1)
     price_file.close()
 #    print(data_dictionary)
 
@@ -32,7 +33,8 @@ try:
         line = line.strip()
         temp = line.split(',')
 #        print(temp)
-        data_dictionary[temp[0]].append(temp[1:])
+        string2 = temp[1]  # information that will be appended into a string and not a list
+        data_dictionary[temp[0]].append(string2)
     SD_file.close()
 #    print(data_dictionary)
 
@@ -41,14 +43,28 @@ except:
 
 # writes Full Inventory!!!
 of = open('FullInventory.csv', 'w')
-for n in data_dictionary:
-    value1 = n # ID
-    value2 = data_dictionary[n][0] #Manufacturer
-    value3 = data_dictionary[n][1] # Item type
-    value4 = data_dictionary[n][3] # Price
-    value5 = data_dictionary[n][4] # Service date
-    value6 = data_dictionary[n][2] # if damaged
+
+# creates sorted dictionary for output part a
+sorted_man = {}
+sorted_names = sorted(data_dictionary.values())
+
+for i in sorted_names:
+    for k in data_dictionary.keys():
+        if data_dictionary[k] == i:
+            sorted_man[k] = (data_dictionary[k])
+# print(sorted_man)
+
+for n in sorted_man:
+    value1 = n  # ID
+    value2 = data_dictionary[n][0]  # Manufacturer
+    value3 = data_dictionary[n][1]  # Item type
+    value4 = data_dictionary[n][3]  # Price
+    value5 = data_dictionary[n][4]  # Service date
+    value6 = data_dictionary[n][2]  # if damaged
     of.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
     of.write('\n')
 #    print(n)
 of.close()
+
+# inventory type list
+
