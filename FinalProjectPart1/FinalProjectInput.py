@@ -67,13 +67,33 @@ for n in sorted_man:
 of.close()
 
 # inventory type list
-item_temp = {}
-sorted_items = sorted(data_dictionary.items(), key=lambda data_dictionary: data_dictionary[1][1])  # sorts by item type
-# for item in sorted_items:
-#    if sorted_items.items([1][1]) == sorted_items.items([n-1][1]):
-#        item_temp[item] = sorted_items[item]
-#    else:
-#        print('~')
-#    print(item_temp)
 
+sorted_items = dict(sorted(data_dictionary.items(), key=lambda data_dictionary: data_dictionary[1][1]))
+# sorts by item type
+# print(sorted_items)
 
+item_type = ""  # empty string for item type to change later in the code
+
+for n in sorted_items:
+    if item_type != sorted_items[n][1]:  # item type is different from before, initially ''
+        item_type = sorted_items[n][1]  # data dictionary's value of item type
+        op = open(item_type+"Inventory.csv", 'w')  # makes new file to write in
+        value1 = n  # ID
+        value2 = data_dictionary[n][0]  # Manufacturer
+        value3 = data_dictionary[n][1]  # Item type
+        value4 = data_dictionary[n][3]  # Price
+        value5 = data_dictionary[n][4]  # Service date
+        value6 = data_dictionary[n][2]  # if damaged
+        op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+        op.write('\n')
+    else:  # if item type is same as before
+        op = open(item_type + "Inventory.csv", 'a')   # appends to previous file instead of creating a new one
+        value1 = n  # ID
+        value2 = data_dictionary[n][0]  # Manufacturer
+        value3 = data_dictionary[n][1]  # Item type
+        value4 = data_dictionary[n][3]  # Price
+        value5 = data_dictionary[n][4]  # Service date
+        value6 = data_dictionary[n][2]  # if damaged
+        op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+        op.write('\n')
+    op.close()
