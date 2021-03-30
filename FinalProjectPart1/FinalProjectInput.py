@@ -23,7 +23,7 @@ try:
         line = line.strip()
         temp = line.split(',')
 #        print(temp)
-        string1 = temp[1]
+        string1 = temp[1]  # makes text on file a string instead of list
         data_dictionary[temp[0]].append(string1)
     price_file.close()
 #    print(data_dictionary)
@@ -47,7 +47,7 @@ of = open('FullInventory.csv', 'w')
 # creates sorted dictionary for output part a
 sorted_man = {}
 sorted_names = sorted(data_dictionary.values())
-
+# sorts the dictionary into new dictionary
 for i in sorted_names:
     for k in data_dictionary.keys():
         if data_dictionary[k] == i:
@@ -67,4 +67,13 @@ for n in sorted_man:
 of.close()
 
 # inventory type list
+item_temp = {}
+sorted_items = sorted(data_dictionary.items(), key=lambda data_dictionary: data_dictionary[1][1])  # sorts by item type
+# for item in sorted_items:
+#    if sorted_items.items([1][1]) == sorted_items.items([n-1][1]):
+#        item_temp[item] = sorted_items[item]
+#    else:
+#        print('~')
+#    print(item_temp)
+
 
