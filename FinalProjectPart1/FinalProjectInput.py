@@ -1,10 +1,12 @@
 # Lori Vo 1852113
 # Final Project for CIS 2348
+import os.path
+from os import path
 from datetime import date
 import datetime
 # print(date.today())
 today = date.today()
-print(today)
+# print(today)
 year = today.year
 # print(year)
 month = today.month
@@ -77,37 +79,38 @@ for n in sorted_man:
 #    print(n)
 of.close()
 
-# inventory type list
+# inventory type list!!! part b of output
+# sorts by item ID
+sort_ID = dict(sorted(data_dictionary.items()))
+# print(sort_ID)
+# print()
 
-sorted_items = dict(sorted(data_dictionary.items(), key=lambda data_dictionary: data_dictionary[1][1]))
-# sorts by item type
-# print(sorted_items)
-
-item_type = ""  # empty string for item type to change later in the code
-
-for u in sorted_items:
-    if item_type != sorted_items[u][1]:  # item type is different from before, initially ''
-        item_type = sorted_items[u][1]  # data dictionary's value of item type
-        op = open(item_type+"Inventory.csv", 'w')  # makes new file to write in
-        value1 = u  # ID
-        value2 = data_dictionary[u][0]  # Manufacturer
-        value3 = data_dictionary[u][1]  # Item type
-        value4 = data_dictionary[u][3]  # Price
-        value5 = data_dictionary[u][4]  # Service date
-        value6 = data_dictionary[u][2]  # if damaged
-        op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
-        op.write('\n')
-    else:  # if item type is same as before
+# item_type = ""  # empty string for item type to change later in the code
+# this for loop method is only perfect when the file item inventories don't already exist
+for u in sort_ID:
+    item_type = sort_ID[u][1]
+    if path.exists(item_type + "Inventory.csv"):  # is item file exists or not
         op = open(item_type + "Inventory.csv", 'a')   # appends to previous file instead of creating a new one
         value1 = u  # ID
-        value2 = data_dictionary[u][0]  # Manufacturer
-        value3 = data_dictionary[u][1]  # Item type
-        value4 = data_dictionary[u][3]  # Price
-        value5 = data_dictionary[u][4]  # Service date
-        value6 = data_dictionary[u][2]  # if damaged
+        value2 = sort_ID[u][0]  # Manufacturer
+        value3 = sort_ID[u][1]  # Item type
+        value4 = sort_ID[u][3]  # Price
+        value5 = sort_ID[u][4]  # Service date
+        value6 = sort_ID[u][2]  # if damaged
         op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
         op.write('\n')
-    op.close()
+        op.close()
+    else:   # if item doesn't exist
+        item_type = sort_ID[u][1]  # data dictionary's value of item type
+        op = open(item_type+"Inventory.csv", 'w')  # makes new file to write in
+        value1 = u  # ID
+        value2 = sort_ID[u][0]  # Manufacturer
+        value3 = sort_ID[u][1]  # Item type
+        value4 = sort_ID[u][3]  # Price
+        value5 = sort_ID[u][4]  # Service date
+        value6 = sort_ID[u][2]  # if damaged
+        op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+        op.write('\n')
 
 # writes damage inventory file!!
 # converts price information to int so I could sort from greatest to least
@@ -144,30 +147,32 @@ for r in sorted_man:  # using sorted_man so it's easier to see if dates are righ
 
 sorted_date = dict(sorted(sorted_man.items(), key=lambda sorted_man: sorted_man[1][4]))
 # print(sorted_date)
-for k in sorted_date:
-    print(sorted_date[k][4])
+# for k in sorted_date:
+#    print(sorted_date[k][4])
 
 od = open('PastServiceDateInventory.csv', 'w')
 for item in sorted_date:
     item_year = sorted_date[item][4].year
     item_month = sorted_date[item][4].month
     item_day = sorted_date[item][4].day
+
     value1 = item  # ID
-    value2 = data_dictionary[item][0]  # Manufacturer
-    value3 = data_dictionary[item][1]  # Item type
-    value4 = data_dictionary[item][3]  # Price
-    value5 = data_dictionary[item][4]  # Service date
-    value6 = data_dictionary[item][2]  # if damaged
-    if item_year<year:
-        od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+    value2 = sorted_date[item][0]  # Manufacturer
+    value3 = sorted_date[item][1]  # Item type
+    value4 = sorted_date[item][3]  # Price
+#    value5 = sorted_date[item][4]  # Service date
+    value6 = sorted_date[item][2]  # if damaged
+    if item_year < year:
+        od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, (str(item_month)+'/'+str(item_day)+'/'+str(item_year)), value6))
         od.write('\n')
     elif item_year == year:
-        if item_month<month:
-            od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+        if item_month < month:
+            od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, (str(item_month)+'/'+str(item_day)+'/'+str(item_year)), value6))
             od.write('\n')
         elif item_month == month:
-            if item_day<day:
-                od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+            if item_day < day:
+                od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, (str(item_month)+'/'+str(item_day)+'/'+str(item_year)), value6))
                 od.write('\n')
-    else: continue
+    else:
+        continue
 od.close()
