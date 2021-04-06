@@ -2,15 +2,15 @@
 # Final Project for CIS 2348
 from datetime import date
 import datetime
-print(date.today())
+# print(date.today())
 today = date.today()
 print(today)
 year = today.year
-print(year)
+# print(year)
 month = today.month
-print(month)
+# print(month)
 day = today.day
-print(day)
+# print(day)
 
 
 # reads given lists and adds to dictionary
@@ -133,11 +133,41 @@ for e in price_sort:
         os.write('\n')
 os.close()
 
+# part c of output!!! past service date inventory file!!
+
 for r in sorted_man:  # using sorted_man so it's easier to see if dates are right using full inventory csv
     string_date = sorted_man[r][4]
     example = datetime.datetime.strptime(string_date, '%m/%d/%Y')
-    print(example.date())
+#    print(example.date())
     sorted_man[r][4] = example.date()
-
-# sorted_date = dict(sorted(sorted_man.items(), key=lambda sorted_man: sorted_man[1][4], reverse=True))
 # print(sorted_man)
+
+sorted_date = dict(sorted(sorted_man.items(), key=lambda sorted_man: sorted_man[1][4]))
+# print(sorted_date)
+for k in sorted_date:
+    print(sorted_date[k][4])
+
+od = open('PastServiceDateInventory.csv', 'w')
+for item in sorted_date:
+    item_year = sorted_date[item][4].year
+    item_month = sorted_date[item][4].month
+    item_day = sorted_date[item][4].day
+    value1 = item  # ID
+    value2 = data_dictionary[item][0]  # Manufacturer
+    value3 = data_dictionary[item][1]  # Item type
+    value4 = data_dictionary[item][3]  # Price
+    value5 = data_dictionary[item][4]  # Service date
+    value6 = data_dictionary[item][2]  # if damaged
+    if item_year<year:
+        od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+        od.write('\n')
+    elif item_year == year:
+        if item_month<month:
+            od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+            od.write('\n')
+        elif item_month == month:
+            if item_day<day:
+                od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+                od.write('\n')
+    else: continue
+od.close()
