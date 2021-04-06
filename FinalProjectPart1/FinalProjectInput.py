@@ -1,5 +1,16 @@
 # Lori Vo 1852113
 # Final Project for CIS 2348
+from datetime import date
+import datetime
+print(date.today())
+today = date.today()
+print(today)
+year = today.year
+print(year)
+month = today.month
+print(month)
+day = today.day
+print(day)
 
 
 # reads given lists and adds to dictionary
@@ -121,3 +132,12 @@ for e in price_sort:
         os.write("{}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5))
         os.write('\n')
 os.close()
+
+for r in sorted_man:  # using sorted_man so it's easier to see if dates are right using full inventory csv
+    string_date = sorted_man[r][4]
+    example = datetime.datetime.strptime(string_date, '%m/%d/%Y')
+    print(example.date())
+    sorted_man[r][4] = example.date()
+
+# sorted_date = dict(sorted(sorted_man.items(), key=lambda sorted_man: sorted_man[1][4], reverse=True))
+# print(sorted_man)
