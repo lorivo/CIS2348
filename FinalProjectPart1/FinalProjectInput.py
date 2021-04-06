@@ -1,7 +1,6 @@
 # Lori Vo 1852113
 # Final Project for CIS 2348
 
-from os import path
 from datetime import date
 import datetime
 # print(date.today())
@@ -158,18 +157,18 @@ for item in sorted_date:
     value2 = sorted_date[item][0]  # Manufacturer
     value3 = sorted_date[item][1]  # Item type
     value4 = sorted_date[item][3]  # Price
-#    value5 = sorted_date[item][4]  # Service date
+    value5 = (str(item_month)+'/'+str(item_day)+'/'+str(item_year))  # Service date
     value6 = sorted_date[item][2]  # if damaged
     if item_year < year:
-        od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, (str(item_month)+'/'+str(item_day)+'/'+str(item_year)), value6))
+        od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
         od.write('\n')
     elif item_year == year:
         if item_month < month:
-            od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, (str(item_month)+'/'+str(item_day)+'/'+str(item_year)), value6))
+            od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
             od.write('\n')
         elif item_month == month:
             if item_day < day:
-                od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, (str(item_month)+'/'+str(item_day)+'/'+str(item_year)), value6))
+                od.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
                 od.write('\n')
     else:
         continue
