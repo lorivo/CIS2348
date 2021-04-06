@@ -1,6 +1,6 @@
 # Lori Vo 1852113
 # Final Project for CIS 2348
-import os.path
+
 from os import path
 from datetime import date
 import datetime
@@ -80,6 +80,7 @@ for n in sorted_man:
 of.close()
 
 # inventory type list!!! part b of output
+
 # sorts by item ID
 sort_ID = dict(sorted(data_dictionary.items()))
 # print(sort_ID)
@@ -87,30 +88,27 @@ sort_ID = dict(sorted(data_dictionary.items()))
 
 # item_type = ""  # empty string for item type to change later in the code
 # this for loop method is only perfect when the file item inventories don't already exist
-for u in sort_ID:
-    item_type = sort_ID[u][1]
-    if path.exists(item_type + "Inventory.csv"):  # is item file exists or not
-        op = open(item_type + "Inventory.csv", 'a')   # appends to previous file instead of creating a new one
-        value1 = u  # ID
-        value2 = sort_ID[u][0]  # Manufacturer
-        value3 = sort_ID[u][1]  # Item type
-        value4 = sort_ID[u][3]  # Price
-        value5 = sort_ID[u][4]  # Service date
-        value6 = sort_ID[u][2]  # if damaged
-        op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
-        op.write('\n')
-        op.close()
-    else:   # if item doesn't exist
-        item_type = sort_ID[u][1]  # data dictionary's value of item type
-        op = open(item_type+"Inventory.csv", 'w')  # makes new file to write in
-        value1 = u  # ID
-        value2 = sort_ID[u][0]  # Manufacturer
-        value3 = sort_ID[u][1]  # Item type
-        value4 = sort_ID[u][3]  # Price
-        value5 = sort_ID[u][4]  # Service date
-        value6 = sort_ID[u][2]  # if damaged
-        op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
-        op.write('\n')
+
+
+for f in sort_ID:
+    item_type = sort_ID[f][1]
+    op = open(item_type + "Inventory.csv", 'w')
+    for u in sort_ID:
+        temp_item = sort_ID[u][1]
+        if item_type == temp_item:  # is item file exists or not
+            op = open(item_type + "Inventory.csv", 'a')   # appends to previous file instead of creating a new one
+            value1 = u  # ID
+            value2 = sort_ID[u][0]  # Manufacturer
+            value3 = sort_ID[u][1]  # Item type
+            value4 = sort_ID[u][3]  # Price
+            value5 = sort_ID[u][4]  # Service date
+            value6 = sort_ID[u][2]  # if damaged
+            op.write("{}, {}, {}, {}, {}, {}".format(value1, value2, value3, value4, value5, value6))
+            op.write('\n')
+            op.close()
+        else:   # if item doesn't exist
+            continue
+    op.close()
 
 # writes damage inventory file!!
 # converts price information to int so I could sort from greatest to least
