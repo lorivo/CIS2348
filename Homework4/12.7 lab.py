@@ -2,13 +2,15 @@
 
 def fat_burning_heart_rate(age_given):
     result = (220-age_given)*.7
-    return(result)
+    return result
+
 
 def get_age():
-    age = int(input())
-    if age < 18 or age > 75:
+    age_ = int(input())
+    if age_ < 18 or age_ > 75:
         raise ValueError('Invalid age.')
-    return age
+    return age_
+
 
 if __name__ == "__main__":
     try:
