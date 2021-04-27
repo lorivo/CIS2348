@@ -189,7 +189,7 @@ for item in sorted_date:
 od.close()
 
 if __name__ == "__main__":
-    print("Please enter the manufacturer and item type of the item you want: ")
+    print("Please enter the manufacturer and item type of the item you want or 'q' to exit: ")
     user_input = input().split(' ')
     while user_input[0] != 'q':
         item_name_match = 0
@@ -306,7 +306,7 @@ if __name__ == "__main__":
                 print("{}: {} {}, ${}".format(item_ID2, manufacturer_name2, item_type, item_price2))
                 print()
 
-        print("Please enter the manufacturer and item type of the item you want: ")
+        print("Please enter the manufacturer and item type of the item you want or 'q' to exit: ")
         user_input = input().split(' ')
         if user_input[0] == 'q':
             break
