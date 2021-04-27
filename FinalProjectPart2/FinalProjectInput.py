@@ -268,7 +268,7 @@ if __name__ == "__main__":
             item_year = sorted_date[items][4].year
             item_month = sorted_date[items][4].month
             item_day = sorted_date[items][4].day
-            price_difference = item_price - data_dictionary[items][3]
+            price_difference = item_price - int(data_dictionary[items][3])
             if manufacturer_name != data_dictionary[items][0] and item_type == data_dictionary[items][1]:
                 # makes sure manufacturer name is different and item types are matching
                 if data_dictionary[items][2] == '':
