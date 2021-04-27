@@ -196,6 +196,11 @@ if __name__ == "__main__":
     highest_price = 0
     item_ID = ''
     item_price = 0
+    highest_price2 = 0
+    item_ID2 = ''
+    manufacturer_name2 = ''
+    item_price2 = 0
+
     print("Please enter the manufacturer and item type of the item you want: ")
     user_input = input().split(' ')
     for word in user_input:
@@ -247,8 +252,50 @@ if __name__ == "__main__":
                                 item_ID = items  # ID
                                 item_price = data_dictionary[items][3]  # Price
 
-    if highest_price == 0:
-        print("The item you're looking for is damaged or past its service date")
-    else:
-        print('Your item is:')
-        print("{}: {} {}, ${}".format(item_ID, manufacturer_name, item_type, item_price))
+    if item_name_match == 1 and item_type_match == 1:
+        if highest_price == 0:
+            print("The item you're looking for is damaged or past its service date")
+        else:
+            print('Your item is:')
+            print("{}: {} {}, ${}".format(item_ID, manufacturer_name, item_type, item_price))
+
+# for alternative item option
+    for items in sorted_man:
+        item_year = sorted_date[items][4].year
+        item_month = sorted_date[items][4].month
+        item_day = sorted_date[items][4].day
+        if manufacturer_name != data_dictionary[items][0] and item_type == data_dictionary[items][1]:
+            # makes sure manufacturer name is different and item types are matching
+            if data_dictionary[items][2] == '':
+                # make sure item isn't damaged
+                if item_year > year:
+                    # similar code to past service date but changing it so dates are after given date
+                    if data_dictionary[items][3] > highest_price2:
+                        # getting highest priced item
+                        highest_price2 = data_dictionary[items][3]
+                        item_ID2 = items  # ID
+                        item_price2 = data_dictionary[items][3]  # Price
+                        manufacturer_name2 = data_dictionary[items][0] # manufacturer name
+                elif item_year == year:
+                    if item_month > month:
+                        if data_dictionary[items][3] > highest_price2:
+                            # getting highest priced item
+                            highest_price2 = data_dictionary[items][3]
+                            item_ID2 = items  # ID
+                            item_price2 = data_dictionary[items][3]  # Price
+                            manufacturer_name2 = data_dictionary[items][0]  # manufacturer name
+                    elif item_month == month:
+                        if item_day > day:
+                            if data_dictionary[items][3] > highest_price2:
+                                # getting highest priced item
+                                highest_price2 = data_dictionary[items][3]
+                                item_ID2 = items  # ID
+                                item_price2 = data_dictionary[items][3]  # Price
+                                manufacturer_name2 = data_dictionary[items][0]  # manufacturer name
+
+    if item_name_match == 1 and item_type_match == 1:
+        if highest_price2 == 0:
+            print("There are no alternative options.")
+        else:
+            print('You may also consider:')
+            print("{}: {} {}, ${}".format(item_ID2, manufacturer_name2, item_type, item_price2))
