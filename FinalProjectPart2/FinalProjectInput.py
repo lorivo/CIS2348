@@ -191,6 +191,11 @@ od.close()
 if __name__ == "__main__":
     item_name_match = 0
     item_type_match = 0
+    manufacturer_name = ''
+    item_type = ''
+    highest_price = 0
+    item_ID = ''
+    item_price = 0
     print("Please enter the manufacturer and item type of the item you want: ")
     user_input = input().split(' ')
     for word in user_input:
@@ -201,10 +206,49 @@ if __name__ == "__main__":
                 print("Item manufacturer found")
                 temp_name = name
                 item_name_match = 1
+                manufacturer_name = name
         for type in item_types:
             if word == type:
                 print("Item type found")
                 temp_type = type
                 item_type_match = 1
+                item_type = type
     if item_name_match == 0 or item_type_match == 0:
         print('No such item in inventory')
+
+# priority order: manufacturer/item type, damaged/service date, highest price
+    for items in sorted_man:
+        item_year = sorted_date[items][4].year
+        item_month = sorted_date[items][4].month
+        item_day = sorted_date[items][4].day
+        if manufacturer_name == data_dictionary[items][0] and item_type == data_dictionary[items][1]:
+            # makes sure manufacturer name and item types are matching
+            if data_dictionary[items][2] == '':
+                # make sure item isn't damaged
+                if item_year > year:
+                    # similar code to past service date but changing it so dates are after given date
+                    if data_dictionary[items][3] > highest_price:
+                        # getting highest priced item
+                        highest_price = data_dictionary[items][3]
+                        item_ID = items  # ID
+                        item_price = data_dictionary[items][3]  # Price
+                elif item_year == year:
+                    if item_month > month:
+                        if data_dictionary[items][3] > highest_price:
+                            # getting highest priced item
+                            highest_price = data_dictionary[items][3]
+                            item_ID = items  # ID
+                            item_price = data_dictionary[items][3]  # Price
+                    elif item_month == month:
+                        if item_day > day:
+                            if data_dictionary[items][3] > highest_price:
+                                # getting highest priced item
+                                highest_price = data_dictionary[items][3]
+                                item_ID = items  # ID
+                                item_price = data_dictionary[items][3]  # Price
+
+    if highest_price == 0:
+        print("The item you're looking for is damaged or past its service date")
+    else:
+        print('Your item is:')
+        print("{}: {} {}, ${}".format(item_ID, manufacturer_name, item_type, item_price))
