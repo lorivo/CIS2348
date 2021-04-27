@@ -214,12 +214,12 @@ if __name__ == "__main__":
                     temp_name = name
                     item_name_match = 1
                     manufacturer_name = name
-            for type in item_types:
-                if word == type:
+            for type_1 in item_types:
+                if word == type_1:
                     print("Item type found")
-                    temp_type = type
+                    temp_type = type_1
                     item_type_match = 1
-                    item_type = type
+                    item_type = type_1
         if item_name_match == 0 or item_type_match == 0:
             print('No such item in inventory')
 
@@ -279,7 +279,7 @@ if __name__ == "__main__":
                             smallest_price_difference = price_difference
                             item_ID2 = items  # ID
                             item_price2 = data_dictionary[items][3]  # Price
-                            manufacturer_name2 = data_dictionary[items][0] # manufacturer name
+                            manufacturer_name2 = data_dictionary[items][0]  # manufacturer name
                     elif item_year == year:
                         if item_month > month:
                             if smallest_price_difference > price_difference:
